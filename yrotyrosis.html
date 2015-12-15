@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo-icon.ico" />
+    <title>Yrotyrosis</title>
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+    Remove this if you use the .htaccess -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script type="text/javascript" src="js/tools.js"></script>
+    <script type="text/javascript" src="js/d3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/d3-directed-graph.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <script>
+var file = getUrlParameters("json");
+if (!file)
+  startDirectedGraph("index.json", "#graph");
+else
+  startDirectedGraph(file, "#graph");
+    </script>
+  </head>
+  <body>
+    <div id="global">
+      <div id="graph"></div>
+      <div id="menu">
+	<input type="radio" id="nav" name="state" value="navigate" checked />
+	<label for="nav" onclick="document.state='navigate';" title="Navigate">
+          <img src="images/navigate.png" width="23" height="23"/>
+        </label>
+	<input type="radio" id="edi" name="state" value="edit" />
+	<label for="edi" onclick="document.state='edit';" title="Edit nodes/links/graph">
+          <img src="images/edit.png" width="23" height="23"/>
+        </label>
+	<input type="radio" id="add" name="state" value="add" />
+	<label for="add" onclick="document.state='add';" title="Add nodes/links">
+          <img src="images/add.png" width="23" height="23"/>
+        </label>
+	<input type="radio" id="groups" name="groups" value="groups" />
+	<label for="groups" id="groupsLabel" style="margin: 0 0 0 20px;" title="Groups of colors">
+          <img src="images/group.png" width="23" height="23"/>
+        </label>
+	<input type="radio" id="save" name="save" value="save" />
+	<label for="save" id="saveLabel" style="margin: 0 0 0 20px;" title="Save graph">
+          <img src="images/save.png" width="23" height="23"/>
+        </label>
+	<input type="radio" id="new" name="new" value="new" />
+	<label for="new" id="newLabel" title="New graph">
+          <img src="images/new.png" width="23" height="23"/>
+        </label>
+	<input type="radio" id="docs" name="docs" value="docs" />
+	<label for="docs" onclick="window.open('editor.html');" id="docsLabel" style="margin: 0 0 0 20px;" title="Edit documents">
+          <img src="images/doc.png" width="23" height="23"/>
+        </label>
+      </div>
+      <div id="groupForm" class="modalForm" title="Click to close">
+	<div id="groupList" class="sub" onclick="sep(event);"></div>
+	<input id="addGroup" class="sub menu" type="button" title="Add new group" value="Add" />
+      </div>
+      <div id="nodeForm" class="modalForm" title="Click to close">
+	<div id="nodeJSON" class="sub"></div>
+	<table class="sub">
+	  <tr>
+	    <td style="text-align: right;">Name:</td>
+	    <td style="text-align: left;"><input id="inputName" type="text" size="10" onclick="sep(event);" title="Name of node" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Label:</td>
+	    <td style="text-align: left;"><input id="inputLabel" type="text" size="10" onclick="sep(event);" title="Show label when mouse over" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Group:</td>
+	    <td style="text-align: left;"><input id="inputGroup" type="text" size="10" onclick="sep(event);" title="Same group, same color" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Radius:</td>
+	    <td style="text-align: left;"><input id="inputRadius" type="number" min="1" step="1" size="3" onclick="sep(event);" title="Size of node" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">On Click:</td>
+	    <td style="text-align: left;"><input id="inputClick" type="text" size="20" onclick="sep(event);" title="Web link, local file or json" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">On double Click:</td>
+	    <td style="text-align: left;"><input id="inputDblClick" type="text" size="20" onclick="sep(event);" title="Web link, local file or json" /></td>
+	  </tr>
+	  <tr>
+	    <td></td>
+	    <td style="text-align: left;"><input id="delNode" class="menu" type="button" title="Click to remove node" value="Delete" /></td>
+	  </tr>
+	</table>
+      </div>
+      <div id="linkForm" class="modalForm" title="Click to close">
+	<div id="linkJSON" class="sub"></div>
+	<table class="sub">
+	  <tr>
+	    <td style="text-align: right;">Source:</td>
+	    <td style="text-align: left;"><select id="inputSource" onclick="sep(event);" title="Node source" ></select></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Target:</td>
+	    <td style="text-align: left;"><select id="inputTarget" onclick="sep(event);" title="Node target" ></select></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Start:</td>
+	    <td style="text-align: left;"><select id="inputStart" onclick="sep(event);" title="Arrow at the beginning"><option value=""></option><option value="start">normal</option><option value="bstart">back</option></select></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Style:</td>
+	    <td style="text-align: left;"><select id="inputStyle" onclick="sep(event);" title="Line style (continuous, dashed)"><option value=""></option><option value="link dashed">dashed</option><option value="link dbldashed">double dashed</option></select></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">End:</td>
+	    <td style="text-align: left;"><select id="inputEnd" onclick="sep(event);" title="Arrow at the end"><option value=""></option><option value="end">normal</option><option value="bend">back</option></select></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Label:</td>
+	    <td style="text-align: left;"><input id="inputLLabel" type="text" size="10" onclick="sep(event);" title="Show label when mouse over" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Distance:</td>
+	    <td style="text-align: left;"><input id="inputDistance" type="number" min="1" step="1" size="3" onclick="sep(event);" title="Natural length of the link" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">On Click:</td>
+	    <td style="text-align: left;"><input id="inputLClick" type="text" size="20" onclick="sep(event);" title="Web link, local file or json" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">On double Click:</td>
+	    <td style="text-align: left;"><input id="inputLDblClick" type="text" size="20" onclick="sep(event);" title="Web link, local file or json" /></td>
+	  </tr>
+	  <tr>
+	    <td></td>
+	    <td style="text-align: left;"><input id="delLink" class="menu" type="button" title="Click to remove link" value="Delete" /></td>
+	  </tr>
+	</table>
+      </div>
+      <div id="optionsForm" class="modalForm" title="Click to close">
+	<table class="sub">
+	  <tr>
+	    <td style="text-align: right;">Title:</td>
+	    <td style="text-align: left;"><input id="inputTitle" type="text" size="15" onclick="sep(event);" title="Title of the graph" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Tags:</td>
+	    <td style="text-align: left;"><input id="inputTags" type="text" size="20" onclick="sep(event);" title="Tags of the graph" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Width:</td>
+	    <td style="text-align: left;"><input id="inputWidth" type="number" min="1" step="1" size="3" onclick="sep(event);" title="Width of the graph" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Height:</td>
+	    <td style="text-align: left;"><input id="inputHeight" type="number" min="1" step="1" size="3" onclick="sep(event);" title="Height of the graph" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Font size:</td>
+	    <td style="text-align: left;"><input id="inputFontSize" type="number" min="1" step="1" size="3" onclick="sep(event);" title="Size of node names" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Label font size:</td>
+	    <td style="text-align: left;"><input id="inputLabelFontSize" type="number" min="1" step="1" size="3" onclick="sep(event);" title="Size of labels" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Link distance:</td>
+	    <td style="text-align: left;"><input id="inputLinkDistance" type="number" min="1" step="1" size="3" onclick="sep(event);" title="Default link distance" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Gravity:</td>
+	    <td style="text-align: left;"><input id="inputGravity" type="number" min="0.01" step="0.01" size="3" onclick="sep(event);" title="Pull together force" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Charge:</td>
+	    <td style="text-align: left;"><input id="inputCharge" type="number" step="1" max="-1" size="3" onclick="sep(event);" title="Pull apart force" /></td>
+	  </tr>
+	  <tr>
+	    <td style="text-align: right;">Node focus color:</td>
+	    <td style="text-align: left;"><input id="inputNodeFocusColor" type="color" onclick="sep(event);" title="Selected node's color" /></td>
+	  </tr>
+	</table>
+      </div>
+      <div id="saveForm" class="modalForm" title="Click to close">
+        <div onclick="sep(event);" title="Save">
+            <input id="saveName" class="sub" type="text" size="10" name="filename" title="File name (not the title) without extension" />
+            <label title="File extension">.json</label><br />
+            <input id="save2server" class="menu" type="button" value="Save on server" title="Save online" />
+          <input id="savePC" class="menu" type="button" value="Save on your PC" title="Save on your hard disk" />
+          <br />
+          <a id="saveHref" style="visibility: hidden;">Download file</a>
+          <div id="graphJSON"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

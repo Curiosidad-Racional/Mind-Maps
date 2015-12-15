@@ -1,0 +1,33 @@
+{"d3":{"properties":{"title":"Teaching","tags":""},
+"options":
+{"width":840,"height":540,"fontSize":14,"labelFontSize":14,"linkDistance":70,"gravity":0.05,"charge":-300,"nodeFocusColor":"#000000"},
+"data":{
+
+"groups": {"root":"#660099"},
+
+"nodes":[
+  {"name":"practica","Name":"Práctica","radius":15,"group":"root","label":"Fácil y clara"},
+    {"name":"dificultad","Name":"Dificultad","radius":11,"group":"dificultad","label":"Progresiva"},
+      {"name":"modificar","Name":"Modificar código","radius":3,"group":"dificultad","label":"Modificar código divertido para hacerlo más divertido (ej. trampas)"},
+      {"name":"copiar","Name":"Copiar código","radius":8,"group":"dificultad","label":"Hacerlo más completo (ej. balas, enemigos...)"},
+      {"name":"ampliar","Name":"Ampliar código","radius":13,"group":"dificultad","label":"Hacerlo más sofisticado (ej. armas más destructivas)"},
+      {"name":"crear","Name":"Crear código","radius":20,"group":"dificultad","label":"Hacerlo más completo (ej. armas más destructivas)"},
+    {"name":"ayudas","Name":"Ayudas","radius":11,"group":"ayudas","label":"Siempre"},
+      {"name":"ejemplos","Name":"Ejemplos siempre al lado","radius":7,"group":"ayudas","label":"Siempre"},
+    {"name":"reto","Name":"Reto","radius":11,"group":"reto","label":"Siempre"},
+      {"name":"competicion","Name":"Competiciones","radius":7,"group":"reto","label":"Entre los compañeros, contra la 'máquina' o contra uno mismo"},
+      {"name":"adivinanza","Name":"Adivinanzas","radius":7,"group":"reto","label":"Formato adivinanza o tecnología para resolver\n antiguas adivinanzas o problemas"}
+],
+
+"links":[
+  {"source":"practica","target":"dificultad","name":"link_0"},
+    {"source":"dificultad","target":"modificar","name":"link_1"},
+    {"source":"dificultad","target":"copiar","name":"link_2"},
+    {"source":"dificultad","target":"ampliar","name":"link_3"},
+    {"source":"dificultad","target":"crear","name":"link_4"},
+  {"source":"practica","target":"ayudas","name":"link_5"},
+    {"source":"ayudas","target":"ejemplos","name":"link_6"},
+  {"source":"practica","target":"reto","name":"link_7"},
+    {"source":"reto","target":"competicion","name":"link_8"},
+    {"source":"reto","target":"adivinanza","name":"link_9"}
+]}}}

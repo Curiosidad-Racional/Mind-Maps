@@ -1,0 +1,13 @@
+{"d3":{"properties":{"title":"Index","tags":"start,home"},
+"options":{"width":840,"height":540,"fontSize":14,"labelFontSize":14,"linkDistance":70,"gravity":0.05,"charge":-300,"nodeFocusColor":"#000000"},
+"data":{
+
+"groups": {"root":"#660099"},
+
+"nodes":[
+      {"name":"gnome","Name":"Science","radius":15,"group":"phd","label":"Science knowledge","click":"gnome.json"},
+      {"name":"Tekne","Name":"Technology","radius":15,"group":"job","label":"Technological knowledge","click":"tekne.json"}
+],
+
+"links":[
+]}}}

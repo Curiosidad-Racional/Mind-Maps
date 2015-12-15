@@ -1,0 +1,1 @@
+{"d3":{"properties":{"title":"Mathematics","tags":""},"options":{"width":640,"height":480,"fontSize":14,"labelFontSize":14,"linkDistance":70,"gravity":0.05,"charge":-300,"nodeFocusColor":"#000000"},"data":{"groups":{},"nodes":[{"name":"node_0","Name":"Fractals","radius":7,"click":"fractals.json"}],"links":[]}}}
