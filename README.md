@@ -1,5 +1,7 @@
 # Mind-Maps
 
+Open `yrotyrosis.html`
+
 ## Dependences
 
 - [JQuery](http://jquery.com/download/) -> `js/jquery.min.js`
