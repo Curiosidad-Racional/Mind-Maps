@@ -2,10 +2,9 @@
 
 Open `yrotyrosis.html`.
 
-Open another mind-map and web pages clicking the nodes.
-
-Shift + Click: Select node
-Ctrl  + Click: Block/Unblock node
+- Open another mind-map and web pages clicking the nodes.
+- Shift + Click: Select node
+- Ctrl  + Click: Block/Unblock node
 
 ## Dependences
 
