@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title> Mandelbrot Set </title>
-		<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<script type="text/javascript" src="../js/MathJax/MathJax.js"></script>
-		<script type="text/javascript" src="../js/MathJax/MathJax-config.js"></script>
-	</head>
-	<body>
-	    <p>\( z_0 \in \) Mandelbrot Set if next iteration converges.</p>
-		<p>\( z_{n+1} = z_n + z_0 \)</p>
-	</body>
+  <head>
+    <title> Mandelbrot Set </title>
+    <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+  </head>
+  <body>
+    <p>\( z_0 \in \) Mandelbrot Set if next iteration converges.</p>
+    <p>\( z_{n+1} = z_n + z_0 \)</p>
+  </body>
 </html>

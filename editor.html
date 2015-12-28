@@ -197,9 +197,9 @@
 
 
     <!-- load ace -->
-    <script src="js/Ace/src-noconflict/ace.js"></script>
+    <script src="https://raw.githubusercontent.com/ajaxorg/ace-builds/master/src-min-noconflict/ace.js"></script>
     <!-- load ace language tools -->
-    <script src="js/Ace/src-noconflict/ext-language_tools.js"></script>
+    <script src="https://raw.githubusercontent.com/ajaxorg/ace-builds/master/src-min-noconflict/ext-language_tools.js"></script>
     <script>
       // trigger extension
       ace.require("ace/ext/language_tools");
@@ -215,7 +215,7 @@
       enableLiveAutocompletion: true
       });
       
-      editor.getSession().setValue("<\!DOCTYPE html>\n<html>\n\t<head>\n\t\t<title>  <\/title>\n\t\t<meta  http-equiv=\"Content-Type\" content=\"text\/html;charset=utf-8\" \/>\n\t\t<script type=\"text\/javascript\" src=\"..\/js\/MathJax\/MathJax.js\"><\/script>\n\t\t<script type=\"text\/javascript\" src=\"..\/js\/MathJax\/MathJax-config.js\"><\/script>\n\t<\/head>\n\t<body>\n\t\t\n\t<\/body>\n<\/html>");
+      editor.getSession().setValue("<\!DOCTYPE html>\n<html>\n\t<head>\n\t\t<title>  <\/title>\n\t\t<meta  http-equiv=\"Content-Type\" content=\"text\/html;charset=utf-8\" \/>\n\t<\/head>\n\t<body>\n\t\t\n\t<\/body>\n<\/html>");
       
       dirHtmlFolder('htmlFiles');
     </script>
